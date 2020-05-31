@@ -65,7 +65,7 @@ class MessagesField extends Component {
                     value={
                         this.state.text
                     }/>                 
-                <button className="msg-input-btn"
+                <button className="msg-input-btn" 
                     onClick={
                         () => this.handleSend(this.state.text, 'Me')
                 }>

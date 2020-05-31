@@ -8,13 +8,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './layout/style/main.css'
 
-import App from './components/App.jsx'
+import {BrowserRouter} from 'react-router-dom'
+import Router from './router.jsx'
 
 ReactDom.render(
   <Provider store={initStore()}>
-    <CssBaseline>
-      <App/>
-    </CssBaseline>
-  </Provider>,
+    <BrowserRouter>
+      <CssBaseline>
+        <Router/>
+      </CssBaseline>
+    </BrowserRouter>
+  </Provider>
+
+  ,
   document.querySelector('#app')
 )

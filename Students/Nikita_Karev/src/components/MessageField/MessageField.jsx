@@ -24,12 +24,12 @@ class MessagesField extends Component {
         };
     }
 
-    // handleSend = (text, sender) => {
-    //     this.setState({ text: ''});
-    //     if (sender == this.state.user) {
-    //         this.sendMessage(text, sender);
-    //     }
-    // }
+    handleSend = (text, sender) => {
+        this.setState({ text: ''});
+        if (sender == this.props.user && text !== '') {
+            this.sendMessage(text, sender);
+        }
+    }
 
     sendMessage(text, user) {
         let { messages } = this.props;
@@ -45,9 +45,13 @@ class MessagesField extends Component {
         // this.props.sendMessage(messageId, sender, text);
     }
 
-    handleChange(value) {
-        // if (evt.keyCode !== 13) this.setState({ text: evt.target.value })
-        this.setState({ text: value });
+    handleChange = (evt) => {
+        // this.setState({ text: value });
+        if (evt.keyCode !== 13) {
+            this.setState({ text: evt.target.value });
+        } else {
+            this.handleSend(evt.target.value, this.props.user);
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -92,14 +96,14 @@ class MessagesField extends Component {
                                     label="With a grid"
                                     hintText="Write your message"
                                     style={ { fontSize: '22px', width: '1120px' } }
-                                    onChange={ (event) => this.handleChange(event.target.value) }
-                                    onKeyUp={ (event) => this.state.text && event.keyCode === 13 ? this.sendMessage(this.props.user, this.state.text) : null }
-                                    value={ this.state.text } />
+                                    onChange = { this.handleChange }
+                                    onKeyUp = { this.handleChange }
+                                    value = { this.state.text } />
                             </Grid>
                         </Grid>
                         <IconButton
                             disabled={ !this.state.text }
-                            onClick={ () => this.sendMessage(this.props.user, this.state.text) }>
+                            onClick={ () => this.handleSend(this.state.text, this.props.user) }>
                             <Send style= { { color: '#00bcd4', cursor: 'pointer' } }/>
                         </IconButton>
                     </div>
@@ -109,8 +113,9 @@ class MessagesField extends Component {
     } 
 }
 
-const mapStateToProps = ({ msgReducer }) => ({
-    messages: msgReducer.messages
+const mapStateToProps = ({ msgReducer, profileReducer }) => ({
+    messages: msgReducer.messages,
+    user: profileReducer.user
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);

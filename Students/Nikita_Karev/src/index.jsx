@@ -17,16 +17,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 let container = document.getElementById('app');
 
-let user = 'John Carmack';
-
 ReactDom.render(
-    <BrowserRouter>
-        <MuiThemeProvider>
+    <MuiThemeProvider>
+        <BrowserRouter>
             <Provider store = { initStore() }>
-                <Router user = { user }/>    
+                <Router />    
             </Provider>
-        </MuiThemeProvider>
-    </BrowserRouter>    
+        </BrowserRouter>
+    </MuiThemeProvider>    
     ,
     container);
 
