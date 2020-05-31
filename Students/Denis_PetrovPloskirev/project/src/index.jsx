@@ -8,17 +8,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux';
 import initStore from './store/store.js';
 
-import MessagesField from './components/MessageField/MessageField.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './router.jsx';
 
 let container = document.getElementById('app');
-let user = 'Loontik';
-
 
 ReactDom.render(
-  <MuiThemeProvider>
-    <Provider store=  { initStore() }>
-        <MessagesField user={user} />
-    </Provider>
-  </MuiThemeProvider>,
+  <BrowserRouter>
+    <MuiThemeProvider>
+      <Provider store = { initStore() }>
+          <Router />
+      </Provider>
+    </MuiThemeProvider>
+  </BrowserRouter>,
   container
 )
