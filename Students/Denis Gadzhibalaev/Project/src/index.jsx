@@ -16,11 +16,12 @@ import initStore from './store/store.js';
 
 
 ReactDom.render(
-    <BrowserRouter>
-        <Provider store = { initStore() }>
+    <Provider store = { initStore() }>
+        <BrowserRouter>
             <MuiThemeProvider>
                 <Router />
             </MuiThemeProvider>
-        </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+    </Provider>
+    
     , document.getElementById('root') );

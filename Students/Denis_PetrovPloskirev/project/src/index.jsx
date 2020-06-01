@@ -14,12 +14,12 @@ import Router from './router.jsx';
 let container = document.getElementById('app');
 
 ReactDom.render(
-  <BrowserRouter>
-    <MuiThemeProvider>
-      <Provider store = { initStore() }>
-          <Router />
-      </Provider>
-    </MuiThemeProvider>
-  </BrowserRouter>,
+  <Provider store = { initStore() }>
+    <BrowserRouter>
+      <MuiThemeProvider>
+        <Router />
+      </MuiThemeProvider>
+    </BrowserRouter>
+  </Provider>,
   container
 )
