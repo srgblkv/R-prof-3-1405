@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './layout/style/main.css';
 
+// its заглушка
 //redux
 import { Provider } from 'react-redux';
 import initStore from './store/store.js';
