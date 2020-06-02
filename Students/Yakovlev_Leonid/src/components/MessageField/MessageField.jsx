@@ -10,6 +10,7 @@ import Message from '../Message/Message.jsx';
 import { sendMessage } from '../../store/actions/messages_actions.js';
 import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
+import ContentSend from 'material-ui/svg-icons/content/send';
 
 
 
@@ -65,9 +66,9 @@ class MessagesField extends Component {
 
 
         return (<div className="d-flex flex-column chat-text">
-                    <>
+                    <div className="d-flex flex-column mass-text">
                         { msgArr }
-                    </>                    
+                    </div>                    
                     <div className="controls d-flex w-100  enter-text">
                         {/* <input 
                             type="text" 
@@ -76,25 +77,23 @@ class MessagesField extends Component {
                             onKeyUp = { this.handleChange }
                             value={ this.state.text }
                         />    */}
-                            <TextField
-                                type="text" 
-                                className="w-75"
-                                onChange={ this.handleChange }
-                                onKeyUp = { this.handleChange }
-                                value={ this.state.text }
-                                id="outlined-textarea"
-                                label="Введите сообщение"
-                                placeholder="Ваше сообщение"
-                                multiline
-                                variant="outlined"
-                             />                   
+                        <TextField
+                            type="text" 
+                            className="w-75"
+                            onChange={ this.handleChange }
+                            onKeyUp = { this.handleChange }
+                            value={ this.state.text }
+                            id="standard-textarea"
+                            label="Введите сообщение"
+                            placeholder="Ваше сообщение"
+                            multiline                                
+                        />                   
                         <Button  
                             className="ml-3 button-text" 
                             onClick={ () => this.handleSend(this.state.text, 'Me') } 
                             variant="outlined">
-                                Отправить
-                        </Button>  
-                                              
+                            <ContentSend />
+                        </Button>                                                
                     </div>
                 </div>)
     }

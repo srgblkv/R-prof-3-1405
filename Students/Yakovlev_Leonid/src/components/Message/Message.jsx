@@ -11,20 +11,24 @@ export default (props) => {
     //dopil
     if (sender) {
         return (
-            <div className="d-flex flex-column msg my-text">
-                <span><strong>{ sender }</strong></span>
-                <p>{ text }</p>
-            </div>
-            
+            <>
+                <p className="d-flex flex-column msg my-text">
+                    <span><strong>{ sender }</strong></span>
+                    <span>{ text }</span>
+                </p>
+            </>
         );
     }     
     else {
         return (
-            <div className="d-flex flex-column msg bot">
-                <span><strong>Bot</strong></span>
-                <p>{ (!sender && text) ? text : 'cyber answer...' }</p>
-            </div>
+            <>
+                <p className="d-flex flex-column msg bot">
+                    <span><strong>Bot</strong></span>
+                    <span>{ (!sender && text) ? text : 'cyber answer...' }</span>
+                </p>
+            </>
         );        
     } 
 
 }
+

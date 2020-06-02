@@ -19,9 +19,7 @@ ReactDom.render(
     <MuiThemeProvider>
         <BrowserRouter>
             <Provider store = { initStore() }>
-                <div className="d-flex w-100 justify-content-center">
-                    <Router />
-                </div>
+                <Router />
             </Provider>
         </BrowserRouter>
     </MuiThemeProvider>
