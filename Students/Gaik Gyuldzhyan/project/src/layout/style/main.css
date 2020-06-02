@@ -63,6 +63,10 @@ body {
     border-right: 1px solid darkslategray;
 }
 
+.msg-input-btn:hover {
+    background-color: #051e2c
+}
+
 svg {
     max-height: 40px;
     max-width: 40px;

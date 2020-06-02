@@ -2,7 +2,15 @@
   border-right: 1px solid darkgoldenrod;
   width: 20%;
   padding: 20px;
-  overflow-y: scroll;
+}
+
+.chatListInner {
+  height: 90%;
+  overflow-y: auto;
+}
+
+.chatAdder {
+  height: 10%;
 }
 
 .chatListItem {
