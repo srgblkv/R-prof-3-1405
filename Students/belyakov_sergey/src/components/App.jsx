@@ -1,35 +1,33 @@
 import React, {Component} from 'react'
 
-import MessageField from './MessageField/index.jsx'
-import SendMessage from './SendMessage/index.jsx'
+import {sendMessage} from '../store/actions/message-actions'
+import {bindActionCreators} from 'redux'
+import connect from 'react-redux/es/connect/connect'
 
-export default class App extends Component {
+import {Container} from "@material-ui/core"
+
+import MessageField from './MessageField/index.jsx'
+import Header from './Header/index.jsx'
+import ChatList from './ChatList/index.jsx'
+
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [
-        {
-          author: 'bot',
-          message: 'Hello!'
-        },
-        {
-          author: 'bot',
-          message: 'Send me message)'
-        }
-      ],
       inputValue: '',
-      // state бота
       botMessageState: {
-        // очередь бота
         botQueue: false,
-        // сообщение в доставке
         inProcess: false,
-        // вариативность ответа
         messages: [
           'Hello', 'Im fine, thanks)', 'How do you do?', 'By'
         ]
       }
     }
+  }
+
+  onScroll() {
+    const mess = document.querySelector('.messages');
+    mess.scrollTop = mess.scrollHeight;
   }
 
   onChange(e) {
@@ -40,18 +38,16 @@ export default class App extends Component {
         inputValue: inputValue
       }))
     } else {
-      this.onSend(e)
+      this.onSend(this.state.inputValue, 'user')
     }
   }
 
-  onSend(e) {
+  onSend(message, author) {
     if (this.state.inputValue !== '') {
-      e.preventDefault()
+      this.sendMessage(message, author)
+
       this.setState((prevState) => ({
-        messages: [...prevState.messages, {
-          author: 'user',
-          message: prevState.inputValue
-        }],
+        ...prevState,
         inputValue: '',
         botMessageState: {
           ...prevState.botMessageState,
@@ -59,22 +55,35 @@ export default class App extends Component {
         }
       }))
     }
+    setTimeout(() => this.onScroll())
+
+  }
+
+  sendMessage(message, author) {
+    const {messages} = this.props
+    const messageId = Object.keys(messages).length + 1
+
+    const roomID = 1
+
+    this.props.sendMessage(messageId, message, author, roomID)
   }
 
   botSendMessage() {
     const {messages} = this.state.botMessageState
 
+    this.sendMessage(
+      messages[Math.floor(Math.random() * messages.length)],
+      'bot'
+    )
+
     this.setState((prevState) => ({
-      messages: [...prevState.messages, {
-        author: 'bot',
-        message:
-          messages[Math.floor(Math.random() * messages.length)]
-      }],
+      ...prevState,
       botMessageState: {
         ...prevState.botMessageState,
         inProcess: false
       }
     }))
+    this.onScroll();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -95,16 +104,45 @@ export default class App extends Component {
     }
   }
 
+  showChatList() {
+    const chatList = document.querySelector('.chat-list');
+    const messageField = document.querySelector('.messages-field')
+    const menuIconOpen = document.querySelector('.menu-icon__open')
+    const menuIconClose = document.querySelector('.menu-icon__close')
+
+    chatList.classList.toggle('show')
+    messageField.classList.toggle('hidden')
+    menuIconOpen.classList.toggle('hidden')
+    menuIconClose.classList.toggle('hidden')
+  }
+
   render() {
     return (
-      <div>
-        <MessageField messages={this.state.messages}/>
-        <SendMessage
-          onChange={this.onChange.bind(this)}
-          onSend={this.onSend.bind(this)}
-          inputValue={this.state.inputValue}
+      <Container
+        maxWidth="lg"
+        disableGutters={true}
+      >
+        <Header
+          showChatList={this.showChatList}
         />
-      </div>
+        <div className="wrapper">
+          <ChatList/>
+          <MessageField
+            messages={this.state.messages}
+            onChange={this.onChange.bind(this)}
+            onSend={() => this.onSend(this.state.inputValue, 'user')}
+            inputValue={this.state.inputValue}
+          />
+        </div>
+      </Container>
     )
   }
 }
+
+const mapStateToProps = ({msgReducer}) => ({
+  messages: msgReducer.messages
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({sendMessage}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

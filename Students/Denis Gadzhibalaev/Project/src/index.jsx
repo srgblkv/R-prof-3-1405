@@ -7,7 +7,8 @@ import './layout/style/main.sass';
 
 
 //components
-import App from './components/App.jsx';
+import Router from './router.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 //redux
 import { Provider } from 'react-redux';
@@ -15,9 +16,11 @@ import initStore from './store/store.js';
 
 
 ReactDom.render(
-    <Provider store = { initStore() }>
-        <MuiThemeProvider>
-            <App />
-        </MuiThemeProvider>
-    </Provider>
+    <BrowserRouter>
+        <Provider store = { initStore() }>
+            <MuiThemeProvider>
+                <Router />
+            </MuiThemeProvider>
+        </Provider>
+    </BrowserRouter>
     , document.getElementById('root') );

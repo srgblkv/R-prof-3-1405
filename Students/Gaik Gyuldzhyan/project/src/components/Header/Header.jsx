@@ -1,12 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom';
 import './style.css';
 
 export default class Header extends React.Component {
+    static propTypes = {
+        chatId: PropTypes.number
+    }
+    static defaultProps = {
+        chatId: 1
+    }
     render() {
         return (
-            <div className="text-center bg-dark w-100">
-                <h1 className="text-light">Chat</h1>
+            <div className="text-center w-100 header">
+                <h1 className="text-light header-name">Chat Room { this.props.chatId }</h1>
             </div>
         );
     }
