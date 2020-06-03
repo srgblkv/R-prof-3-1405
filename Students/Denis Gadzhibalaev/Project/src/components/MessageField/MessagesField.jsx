@@ -77,7 +77,7 @@ class MessagesField extends React.Component {
     render() {
         let { messages } = this.props;
         const messagesArr = [];
-        Object.keys(messages).forEach(key => {
+        Object.keys(messages).map(key => {
             messagesArr.push(<Message key={ shortid.generate() } 
                                       sender={ messages[key].user } 
                                       text={ messages[key].text } />)
@@ -96,13 +96,13 @@ class MessagesField extends React.Component {
                    ref={ this.focusTextInput }
                    disabled = { (messages[Object.keys(messages).length].user ) ? true : false}
                    fullWidth={ true }
-                   hintText="Введите сообщение"
+                   hintText="Enter Message"
                    style={ { fontSize: '22px' } }
                    onChange= {this.changeInputText}
                    value={ this.state.inputText }
                    onKeyUp={ () => this.changeInputText(this.state.inputText, this.props.user) }
                />
-               <FloatingActionButton onClick={ () => this.handleSend(this.state.inputText, this.props.user) }>
+               <FloatingActionButton onClick={ () => this.handleSend(this.state.inputText, this.props.userName) }>
                    <SendIcon />
                </FloatingActionButton>
             </div> 
@@ -111,8 +111,9 @@ class MessagesField extends React.Component {
     }
 }
 
-const mapStateToProps = ({ msgReducer }) => ({
-    messages: msgReducer.messages
+const mapStateToProps = ({ msgReducer, prfReducer }) => ({
+    messages: msgReducer.messages,
+    user: prfReducer.userName
 });
 
 const mapDispathToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);

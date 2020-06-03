@@ -12,16 +12,16 @@ const initialStore = {
             user: null,
             text: 'Hello, human. What do you need from me?'
         },
-        2: {
-            user: null,
-            text: 'Hi again, human'
-        }
+        // 2: {
+        //     user: null,
+        //     text: 'Hi again, human'
+        // }
     },
-    chats: {
-        1: {title: 'Chat room 1', messageList: [1]},
-        2: {title: 'Chat room 2', messageList: [2]},
-        3: {title: '', messageList: []}
-    }
+    // chats: {
+    //     1: {title: 'Chat room 1', messageList: [1]},
+    //     2: {title: 'Chat room 2', messageList: [2]},
+    //     3: {title: '', messageList: []}
+    // }
 }
 
 export default function msgReducer(store = initialStore, action) {
@@ -33,16 +33,16 @@ export default function msgReducer(store = initialStore, action) {
                 } } }
             })
         }
-        case ADD_CHAT: {
-            const chatId = Object.keys(store.chats).length + 1;
-                return update(store, {
-                    chats: { $merge: {
-                        [chatId]: {
-                            title: action.title, messageList: []
-                        }
-                    } }
-                })
-        }
+        // case ADD_CHAT: {
+        //     const chatId = Object.keys(store.chats).length + 1;
+        //         return update(store, {
+        //             chats: { $merge: {
+        //                 [chatId]: {
+        //                     title: action.title, messageList: []
+        //                 }
+        //             } }
+        //         })
+        // }
         default: 
             return store;
     }
