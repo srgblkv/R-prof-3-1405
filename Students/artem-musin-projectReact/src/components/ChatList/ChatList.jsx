@@ -1,89 +1,114 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import connect from 'react-redux/es/connect/connect';
-import PropTypes from 'prop-types';
-import { addChat } from '../../store/actions/chats_actions'
+import { addChat } from '../../store/actions/chats_actions.js';
 
 import { Link } from 'react-router-dom';
 
-import { List, ListItem, ListItemText, Divider, Badge } from '@material-ui/core'
+import { List, ListItem, ListItemText, Grid } from '@material-ui/core';
+import { TextField } from 'material-ui';
 import { Mail } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
 
-export default class ChatList extends React.Component {
+const inputStyle = {
+    maxWidth: '12em',
+    
+}
 
-    static propTypes = {
-        chats: PropTypes.object.isRequired,
-        addChat: PropTypes.func.isRequired
-    }
+const inputBlock = {
+    alignSelf: 'center',
+    color: 'whitesmoke'
+}
+
+const listStyles = {
+    textDecoration: 'none'
+}
+
+class ChatList extends React.Component {
 
     state = {
-        text: ''
+        input: ''
+    }
+
+
+    handleAdd = () => { // Добавление чата в лист
+            if (this.state.input) {
+                this.props.addChat(this.state.input);
+                    this.setState({ input: '' })
+            }
+     }
+
+     handleChange = (evt) => { 
+        if (evt.keyCode !== 13) this.setState({ [evt.target.name]: evt.target.value })
+    }
+
+    handleKeyUp = (evt) => {
+        if (evt.keyCode == 13) this.handleAdd()
     }
 
     render() {
+
+        let { chats } = this.props;
+
+        let chatsArray = Object.keys(chats).map(key => (
+            <Link to={`/chat/${ key }/`} key={ key } >
+                        <ListItem button>
+                            <ListItemText style={{padding: '0em 1em'}} primary={ chats[key].title } /> 
+                                    <Mail />
+                        </ListItem>
+                    </Link> 
+                    
+        ))
+
         return (
                 <List component="nav" 
-                    style={{
-                        width: '650px'
-                        }}>
-                    <Link to='/chat/1/'>
-                        <ListItem button>
-                            <ListItemText style={{padding: '0em 1em'}} primary="Chat with my parents" />
-                                <Badge color="secondary" badgeContent={2}> 
-                                    <Mail />
-                                </Badge>
-                        </ListItem>
-                    </Link>
+                    style={listStyles}>
+                            { chatsArray }
+                                <ListItem
+                                    key='Add new chat'
+                                    onClick={ this.handleAdd }>
+                                        <Grid 
+                                            container
+                                            item
+                                            spacing={1}
+                                            direction="row"
+                                            >
 
-                    <Divider />
-                        
-                    <Link to='/chat/2/'>
-                        <ListItem button>
-                            <ListItemText style={{padding: '0em 1em'}} primary="Chat with my friends" />
-                                <Badge color="secondary" badgeContent={10}> 
-                                    <Mail />
-                                </Badge>
-                        </ListItem>
-                    </Link>
+                                                <Grid item
+                                                    style={inputBlock}>
+                                                        <AddIcon />
+                                                    </Grid>
 
-                    <Divider />
-                    
-                    <Link to='/chat/3/'>
-                        <ListItem button>
-                            <ListItemText style={{padding: '0em 1em'}} primary="Chat with my girls" />
-                                <Badge color="secondary" badgeContent={1000} max={999}> 
-                                    <Mail />
-                                </Badge>
-                        </ListItem>
-                    </Link>
-
-                    <Divider />
-
-                    <Link to='/chat/4/'>
-                        <ListItem button>
-                            <ListItemText style={{padding: '0em 1em'}} primary="Chat with my bestie" />
-                                <Badge color="secondary" badgeContent={1}> 
-                                    <Mail />
-                                </Badge>
-                        </ListItem>
-                    </Link>
-
-                    <Divider />
-
-                    <Link to='/chat/5/'>
-                        <ListItem button>
-                            <ListItemText style={{padding: '0em 1em'}} primary="Chat with my pet" />
-                                <Mail />
-                            </ListItem>
-                    </Link>
+                                                <Grid item
+                                                    >
+                                                    <TextField
+                                                        key='textField'
+                                                        name='input'
+                                                        hintText='Add new chat...'
+                                                        id="input-with-icon-textfield"
+                                                        onChange={ this.handleChange }
+                                                        value={ this.state.input }
+                                                        onKeyUp={ this.handleKeyUp }
+                                                        style={inputStyle}
+                                                    />
+                                                    </Grid>
+                                            
+                                        </Grid>
+                                    </ListItem>
+                                        
+                                       
+                                        
+                                    
                 </List>
             
         )
     }
 }
 
-const mapStateToProps = ({ msgReducer }) => ({
-    chats: msgReducer.chats
+const mapStateToProps = ({ chatsReducer }) => ({
+    chats: chatsReducer.chats
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ addChat }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList)
