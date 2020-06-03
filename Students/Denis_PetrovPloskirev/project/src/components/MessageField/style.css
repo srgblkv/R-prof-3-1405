@@ -13,7 +13,7 @@
 }
 
 .msgList {
-  overflow-y: scroll;
+  overflow-y: auto;
   flex: 1 0 auto;
   max-height: calc(100vh - 250px);
   display: flex;
