@@ -42,7 +42,7 @@ export let sendMessage = (messageId, sender, text) => ({
             {
                 type: SUCCESS_MESSAGE_SEND,
                 payload: (action, state, res) => getJSON(res)
-                            .then(json => ({ response, msg: { messageId, sender, text }}))
+                            .then(json => ({ response: json, msg: { messageId, sender, text }}))
             },
             ERROR_MESSAGE_SEND
         ]
