@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import { getUserInfo } from '../../store/actions/profile_actions.js';
 import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
+
+import { loadProfile } from '../../store/actions/profile_actions.js'
+
+import './style.css';
 
 class Profile extends Component {
   constructor(props){
@@ -14,9 +17,12 @@ class Profile extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.loadProfile()
+  }
+
   render(){
-    // this.props.getUserInfo('1');
-    const { username, age, photo } = this.props.userInfo;
+    const { name, age, photo } = this.props.userInfo;
     console.log(this.props)
 
     return (
@@ -44,7 +50,6 @@ const mapStateToProps = ({ profileReducer }) => ({
   userInfo: profileReducer.userInfo
 });
 
-// const mapDispatchToProps = dispatch => bindActionCreators({ getUserInfo }, dispatch);
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadProfile }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
