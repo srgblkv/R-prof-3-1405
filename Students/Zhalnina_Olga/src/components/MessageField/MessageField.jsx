@@ -10,7 +10,6 @@ import SendIcon from "@material-ui/icons/Send";
 import { sendMessage, loadMessages } from "../../store/actions/messages_actions.js";
 import { bindActionCreators } from "redux";
 import connect from "react-redux/es/connect/connect";
-import { loadMessages } from "../../../../../PR/6/src/store/actions/messages_actions";
 
 class MessagesField extends Component {
   constructor(props) {
