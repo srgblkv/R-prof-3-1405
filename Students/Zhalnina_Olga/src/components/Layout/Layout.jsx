@@ -15,16 +15,18 @@ let user = "Me";
 
 export default class Layout extends React.Component {
   static propTypes = {
-    chatId: PropTypes.number
+    chatId: PropTypes.number,
+    profile: PropTypes.bool
   }
   static defaultProps = {
-    chatId: 1
+    chatId: 1,
+    profile: false
   }
 
   render() {
     return (
       <div className="layout">
-        <Header chatId = { this.props.match.params.chatId }/>
+        <Header chatId = { this.props.match.params.chatId } profile ={ false }/>
         <ChartList />
         <Provider store={initStore()}>
           <MessagesField user={user} />

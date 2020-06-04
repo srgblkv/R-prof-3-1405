@@ -1,6 +1,3 @@
-import { GET_USERINFO } from '../actions/profile_actions.js';
-
-
 const initialStore = {
     userInfo: {
         name: 'John Cena',
@@ -11,9 +8,6 @@ const initialStore = {
 
 export default function profileReducer(store = initialStore, action) {
     switch(action.type) {
-        case GET_USERINFO: {
-            return store;
-        }
         default:
             return store;
     }

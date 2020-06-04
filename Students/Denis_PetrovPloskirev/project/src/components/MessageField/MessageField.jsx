@@ -21,14 +21,6 @@ class MessagesField extends Component {
     };
   }
 
-  static propTypes = {
-    chatId: PropTypes.number
-  }
-  
-  static defaultProps = {
-    chatId: 1
-  }
-
   handleSend = (text, sender) => {
     this.setState({ text: '' });
     if (sender == this.props.user && this.state.text) {
@@ -90,9 +82,9 @@ class MessagesField extends Component {
   }
 }
 
-const mapStateToProps = ({ msgReducer, prflReducer }) => ({
+const mapStateToProps = ({ msgReducer, prflReducer}) => ({
   messages: msgReducer.messages,
-  user: prflReducer.user
+  user: prflReducer.user,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);

@@ -1,38 +1,54 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import 'bootstrap';
+import React from 'react';
 
 import Header from '../Header/Header.jsx';
 import ChatList from '../ChatList/ChatList.jsx';
 import MessagesField from '../MessageField/MessageField.jsx';
-import initStore from '../../store/store.js';
 
 import { Container, Grid } from '@material-ui/core'
 
-export default class Layout extends Component {
+const messageFieldStyles = {
+    backgroundColor: 'white',
+    borderBottomLeftRadius: '1.5em',
+    borderTopLeftRadius: '1.5em',
+}
+
+const chatListStyles = {
+    border: '1px solid whitesmoke',
+    borderLeft: 'none',
+    borderBottomRightRadius: '1.5em',
+    borderTopRightRadius: '1.5em',
+}
+
+const backStyles = {
+    marginTop: '2.5em',
+    boxShadow: '0px 5px 10px -4px rgba(0,0,0,0.7)',
+    borderTopLeftRadius: '1.5em',
+    borderBottomLeftRadius: '1.5em',
+    borderBottomRightRadius: '1.5em',
+    borderTopRightRadius: '1.5em',
+}
+
+const containerStyles = {
+    backgroundColor: '#e4ccff', 
+    borderRadius: '1.5em',
+    height: '700px'
+}
+
+export default class Layout extends React.Component {
+  
+
     render() {
         return (
             <Container 
                 maxWidth="lg" 
                 fixed 
                 component="div" 
-                style={{ 
-                    backgroundColor: '#e4ccff', 
-                    borderRadius: '1.5em',
-                    height: '700px'
-                    }}>
+                style={containerStyles}>
 
-                    <Header></Header>
+                    <Header chatTitle={this.props.chatTitle} />
 
                     <Grid container spacing={3}
-                        style={{
-                            marginTop: '2.5em',
-                            boxShadow: '0px 5px 10px -4px rgba(0,0,0,0.7)',
-                            borderTopLeftRadius: '1.5em',
-                            borderBottomLeftRadius: '1.5em',
-                            borderBottomRightRadius: '1.5em',
-                            borderTopRightRadius: '1.5em',
-                        }}>
+                        style={backStyles}>
                         <Grid
                             container
                             item
@@ -40,13 +56,9 @@ export default class Layout extends Component {
                             direction="row"
                             justify="center"
                             alignItems="flex-start"
-                            style={{
-                                backgroundColor: 'white',
-                                borderBottomLeftRadius: '1.5em',
-                                borderTopLeftRadius: '1.5em',
-                            }}
+                            style={messageFieldStyles}
                             >
-                                <MessagesField store={initStore()} />
+                                <MessagesField />
                         </Grid>
                             <Grid
                                 container
@@ -54,14 +66,8 @@ export default class Layout extends Component {
                                 alignItems="flex-start"
                                 justify="flex-start"
                                 xs={4}
-                                style={{
-                                    border: '1px solid whitesmoke',
-                                    borderLeft: 'none',
-                                    borderBottomRightRadius: '1.5em',
-                                    borderTopRightRadius: '1.5em',
-                                }}>    
-                                    <ChatList>
-                                    </ChatList>
+                                style={chatListStyles}>    
+                                    <ChatList />
                             </Grid>
                     </Grid>
                         

@@ -16,6 +16,7 @@ module.exports = {
             filename: path.join('js', 'bundle.js')
     },
     target: 'web',    // настройка типа сборки 
+    
     module: {
         rules: [
             {
@@ -45,7 +46,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, 'src', 'public', 'index.html')    // template свойство - для копии собственного html
-        }) 
-        
-    ]
+        }) ,
+    ],
+    
+    devServer: {
+        port: 8080, 
+        historyApiFallback: {
+            index: 'index.html'
+        },
+    },
 };

@@ -37,8 +37,8 @@ export default class ChatList extends React.Component {
         {users.map(user => {
           const labelId = `checkbox-list-secondary-label-${ user.id }`;
           return (
-            <Link to ={`/chat/${ user.id }`}>
-              <ListItem key={ user.id } button>
+            <Link to ={`/chat/${ user.id }`} key={ user.id }>
+              <ListItem button>
                 <ListItemAvatar primaryText = {`Chat ${ user.id }`}>
                   <Avatar className="avatar">
                     { user.name.substring(0, 2) }
