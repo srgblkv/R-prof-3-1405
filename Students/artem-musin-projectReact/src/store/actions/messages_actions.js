@@ -17,7 +17,7 @@ export let sendMessage = (messageId, sender, text) => ({
 
 export const loadMessages = () => ({
     [RSAA]: {
-        endpoint: './server/db/messages.json',
+        endpoint: './api/messages',
         method: 'GET',
         types: [
             START_MESSAGES_LOADING,
