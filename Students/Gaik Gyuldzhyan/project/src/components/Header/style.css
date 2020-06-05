@@ -1,12 +1,14 @@
 .header {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     border-bottom: 1px solid darkslategray;
     background-color: #051e2c;
 }
 
 a {
     align-self: center;
-    background-color: darkslategray;
+    width: 5%;
 }
 
 button {
@@ -19,5 +21,5 @@ button {
     margin: 0;
     line-height: 70px;
     text-align: center;
-    width: 80%;
+    width: 95%;
 }
