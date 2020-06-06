@@ -65,11 +65,11 @@ class ChatList extends React.Component {
 
         let chatsArray = Object.keys(chats).map(key => (
         
-                        <ListItem button>
+                        <ListItem button
+                            onClick={() => this.handleNavigate(`/chat/${key}`)}>
                             <ListItemText 
                             style={chatListStyles} 
                             primary={ chats[key].title } 
-                            onClick={() => this.handleNavigate(`/chat/${key}`)}
                             /> 
                                     <Avatar alt={chats[key].title} src='/broken-image.jpg' 
                                         style={avatarStyles} />

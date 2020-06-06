@@ -15,7 +15,26 @@ app.get('/messages', (req, res) => {
             res.json(d);
         }
     })
-})
+});
+
+app.post('/messages', (req, res) => {
+    fs.readFile('./server/db/messages.json', 'utf-8', (err, data) => {
+        if(!err) {
+            let messages = JSON.parse(data);
+
+            messages[req.body.messageId] = {
+                user: req.body.sender,
+                text: req.body.text
+            };
+            
+            fs.writeFile('./server/db/messages.json', JSON.stringify(messages, null, ' '), err => {
+                if (!err) {
+                    res.json({ status: 1 })
+                }
+            })
+        }
+    })
+});
 
 app.listen(3300, () => {
     console.log('listening @ port 3300');
