@@ -5,10 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './layout/style/main.css';
 
 // redux
-import {Provider} from 'react-redux';
-import initStore from './store/store.js';
+import { Provider } from 'react-redux';
+import { initStore, history } from './store/store.js';
 
-import {BrowserRouter} from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router';
+import { PersistGate } from 'redux-persist/integration/react' ;
+
 import Router from './router.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -16,15 +18,17 @@ let container = document.getElementById('app')
 
 let user = 'Loontik';
 
+const { store, persistor } = initStore();
+
 ReactDom.render (
-    <Provider store={
-        initStore()
-    }>
-        <BrowserRouter>
-            <MuiThemeProvider>
-                <Router user={user}/>
-            </MuiThemeProvider>
-        </BrowserRouter>
+    <Provider store={ store }>
+        <PersistGate loading = { null } persistor = { persistor } >
+            <ConnectedRouter history = { history }>
+                <MuiThemeProvider>
+                    <Router user={user}/>
+                </MuiThemeProvider>
+            </ConnectedRouter>
+        </PersistGate>
     </Provider>,
     container
 )

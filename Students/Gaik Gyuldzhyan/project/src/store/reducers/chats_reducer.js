@@ -5,37 +5,37 @@ import { ADD_CHAT } from '../actions/chats_actions.js';
 let initialStore = {
     chats: {
         1: {
-            title: 'chat_1',
+            title: "Benedict Cumberbatch",
             messagesList: []
         },
         2: {
-            title: 'chat_2',
-            messagesList: []
+            title: "Ostap Bender",
+            "messagesList": []
         },
         3: {
-            title: 'chat_3',
-            messagesList: []
+            "title": "Alan Walker",
+            "messagesList": []
         }
     }
 }
 
 export default function chatsReducer(store = initialStore, action) {
     switch (action.type) {
-        case ADD_CHAT: {
-            let chatId = Object.keys(store.chats).length + 1;
-
-            return update(store, {
-                chats: {
-                    $merge: {
-                        [chatId]: {
-                            title: action.title,
-                            messagesList: []
+        case ADD_CHAT:
+            {
+                let chatId = Object.keys(store.chats).length + 1;
+                return update(store, {
+                    chats: {
+                        $merge: {
+                            [chatId]: {
+                                title: action.title,
+                                messagesList: []
+                            }
                         }
                     }
-                }
-            });
-        }
-        default: 
+                });
+            }
+        default:
             return store;
     }
 }
