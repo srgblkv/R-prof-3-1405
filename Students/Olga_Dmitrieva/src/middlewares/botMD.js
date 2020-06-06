@@ -1,8 +1,8 @@
-import { SEND_MSG, sendMessage } from '../store/actions/messages_actions.js';
+import { SUCCESS_MESSAGE_SEND, sendMessage } from '../store/actions/messages_actions.js';
 
 export default store => next => action => {
     switch (action.type) {
-        case SEND_MSG: {
+        case SUCCESS_MESSAGE_SEND: {
             if (action.sender == 'Me') {
                 setTimeout(() => {
                     let id = Object.keys(store.getState().msgReducer.messages).length + 1; //id = `id-${Date.now()}`
