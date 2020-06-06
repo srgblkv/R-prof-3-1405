@@ -5,7 +5,7 @@ import update from 'react-addons-update';
 import { SUCCESS_MESSAGES_LOADING, START_MESSAGES_LOADING, SUCCESS_MESSAGE_SEND } from '../actions/messages_actions.js';
 
 const initialStore = {
-    messages: {},
+    messages: [],
     isLoading: false
 }
 
