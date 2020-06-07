@@ -1,25 +1,24 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-
 import {Provider} from 'react-redux'
-import initStore from './store/store.js'
+import {ConnectedRouter} from 'connected-react-router'
+
+import {initStore, history} from './store/store.js'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './layout/style/main.css'
 
-import {BrowserRouter} from 'react-router-dom'
 import Router from './router.jsx'
 
 ReactDom.render(
   <Provider store={initStore()}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <CssBaseline>
         <Router/>
       </CssBaseline>
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>
 
-  ,
-  document.querySelector('#app')
+  , document.querySelector('#app')
 )

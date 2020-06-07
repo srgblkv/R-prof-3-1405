@@ -1,21 +1,10 @@
 import update from 'react-addons-update'
 
-import {SEND_MESSAGE} from '../actions/message-actions'
+import {SEND_MESSAGE, SUCCESS_MESSAGES_LOADING} from '../actions/message-actions'
 
 
 const initialStore = {
-  messages: {
-    1: {
-      author: 'bot',
-      message: 'Hello, this is Chat 1',
-      roomId: 1
-    },
-    2: {
-      author: 'bot',
-      message: 'By, this is Chat 2',
-      roomId: 2
-    }
-  }
+  messages: {}
 }
 
 export default function msgReducer(store = initialStore, action) {
@@ -33,6 +22,15 @@ export default function msgReducer(store = initialStore, action) {
         }
       })
     }
+
+    case SUCCESS_MESSAGES_LOADING: {
+      return update(store, {
+        messages: {
+          $set: action.payload
+        }
+      })
+    }
+
     default: {
       return store
     }

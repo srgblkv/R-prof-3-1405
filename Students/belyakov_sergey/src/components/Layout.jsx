@@ -3,14 +3,13 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import connect from 'react-redux/es/connect/connect'
 
-import {sendMessage} from '../store/actions/message-actions'
+import {sendMessage, loadMessages} from '../store/actions/message-actions'
 
 import MessageField from './MessageField/index.jsx'
 import Header from './Header/index.jsx'
 import ChatList from './ChatList/index.jsx'
 
 import {Container} from "@material-ui/core"
-import roomReducer from "../store/reducers/room-reducer";
 
 class Layout extends Component {
   static propTypes = {
@@ -27,11 +26,12 @@ class Layout extends Component {
     inputValueMessage: '',
     botMessageState: {
       botQueue: false,
-      inProcess: false,
-      messages: [
-        'Hello', 'Im fine, thanks)', 'How do you do?', 'By'
-      ]
+      inProcess: false
     }
+  }
+
+  componentDidMount() {
+    this.props.loadMessages()
   }
 
   onScroll() {
@@ -75,24 +75,6 @@ class Layout extends Component {
     sendMessage(messageId, message, author, roomId)
   }
 
-  botSendMessage() {
-    const {messages} = this.state.botMessageState
-
-    this.sendNewMessage(
-      messages[Math.floor(Math.random() * messages.length)],
-      'bot'
-    )
-
-    this.setState((prevState) => ({
-      ...prevState,
-      botMessageState: {
-        ...prevState.botMessageState,
-        inProcess: false
-      }
-    }))
-    this.onScroll();
-  }
-
   showChatList() {
     const chatList = document.querySelector('.chat-list');
     const messageField = document.querySelector('.messages-field')
@@ -103,24 +85,6 @@ class Layout extends Component {
     messageField.classList.toggle('hidden')
     menuIconOpen.classList.toggle('hidden')
     menuIconClose.classList.toggle('hidden')
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const {botQueue} = this.state.botMessageState
-    const {inProcess} = prevState.botMessageState
-
-    if (botQueue) {
-      if (!inProcess) {
-        this.setState((prevState) => ({
-          botMessageState: {
-            ...prevState.botMessageState,
-            botQueue: false,
-            inProcess: true
-          }
-        }))
-        setTimeout(() => this.botSendMessage(), 1000)
-      }
-    }
   }
 
   render() {
@@ -161,6 +125,6 @@ const mapStateToProps = ({msgReducer, userReducer, roomReducer}) => ({
   user: userReducer.user
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({sendMessage}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({sendMessage, loadMessages}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout)

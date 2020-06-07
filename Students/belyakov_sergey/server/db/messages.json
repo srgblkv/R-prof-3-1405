@@ -1,0 +1,12 @@
+{
+  "1": {
+    "author": "bot",
+    "message": "Hello, this is Chat 1",
+    "roomId": 1
+  },
+  "2": {
+    "author": "bot",
+    "message": "By, this is Chat 2",
+    "roomId": 2
+  }
+}

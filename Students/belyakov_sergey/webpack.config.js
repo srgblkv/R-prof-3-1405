@@ -12,7 +12,21 @@ module.exports = {
     filename: path.join('js', 'bundle.js')
   },
   target: 'web',
-  devServer: {historyApiFallback: true},
+  devServer: {
+    port:3000,
+    hot: true,
+    open: false,
+    proxy: {
+      contentBase: './dist',
+      '/api': {
+        target: 'http://localhost:3300',
+        pathRewrite: {'^/api' : ''},
+        secure: false,
+        changeOrigin: true
+      }
+    },
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {
