@@ -12,6 +12,7 @@ module.exports = {
     filename: path.join('js', 'bundle.js')
   },
   target: 'web',
+  devServer: {historyApiFallback: true},
   module: {
     rules: [
       {
